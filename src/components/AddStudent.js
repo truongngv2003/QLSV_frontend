@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { addStudent } from '../services/studentService';
+import React, { useState } from "react";
+import { addStudent } from "../services/studentService";
 
 const AddStudent = () => {
   const [student, setStudent] = useState({
-    studentId: '',
-    fullName: '',
-    dateOfBirth: '',
-    className: '',
-    program: '',
-    status: ''
+    studentId: "",
+    fullName: "",
+    dateOfBirth: "",
+    className: "",
+    program: "",
+    status: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setStudent({
       ...student,
-      [name]: value
+      [name]: value,
     });
   };
 
@@ -23,10 +23,10 @@ const AddStudent = () => {
     e.preventDefault();
     try {
       await addStudent(student);
-      alert('Student added successfully!');
+      alert("Student added successfully!");
     } catch (error) {
       console.error(error);
-      alert('Failed to add student');
+      alert("Failed to add student");
     }
   };
 
@@ -37,7 +37,11 @@ const AddStudent = () => {
       <input type="date" name="dateOfBirth" placeholder="Date of Birth" onChange={handleChange} required />
       <input type="text" name="className" placeholder="Class Name" onChange={handleChange} required />
       <input type="text" name="program" placeholder="Program" onChange={handleChange} required />
-      <input type="text" name="status" placeholder="Status" onChange={handleChange} required />
+      <select name="status" size="3" onChange={handleChange} required >
+        <option value="Studying" selected>Studying</option>
+        <option value="Dropped Out">Dropped Out</option>
+        <option value="Graduated">Graduated</option>
+      </select>
       <button type="submit">Add Student</button>
     </form>
   );
